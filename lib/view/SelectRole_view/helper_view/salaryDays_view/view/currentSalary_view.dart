@@ -10,6 +10,7 @@ import '../../../../../../res/appColors/App_Colors.dart';
 import '../../../../../../res/appImages/App_images.dart';
 import '../../../../../../res/commonWidget/customText.dart';
 import '../../../../../../res/customStyle/custom_size.dart';
+import '../../../../../res/commonWidget/customDropdown_widget.dart';
 import '../../locationExperience_view/view/takingCareOf_view.dart';
 import '../widget/customSelectableCheckBox_widget.dart';
 
@@ -29,6 +30,23 @@ class _CurrentSalaryViewState extends State<CurrentSalaryView> {
     '4 Days Off + Public Holidays'
   ];
   int selectedIndex = -1; // Initially none selected
+
+  // For currency dropdown
+  String selectedCurrency = 'TWD';
+  final List<String> currencyData = [
+    'TWD',
+    'HKD',
+    'PM',
+    'PHP (Peso)',
+    'AED',
+    'KD',
+    'JOD',
+    'SAR',
+    'OMR',
+    'USD',
+    'IDR Rupiah',
+    'MMK',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +105,7 @@ class _CurrentSalaryViewState extends State<CurrentSalaryView> {
 
               heightBox10,
 
-              /// Salary Box
+              /// Salary Box with Currency Dropdown
               Container(
                 height: 100,
                 width: double.infinity,
@@ -100,27 +118,37 @@ class _CurrentSalaryViewState extends State<CurrentSalaryView> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
                     children: [
-                      CustomText(
-                        title: 'SGD',
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.primaryColor,
+                      /// Currency Dropdown
+                      Expanded(
+                        flex: 2,
+                        child: CustomDropDown(
+                          initialLabelText: selectedCurrency,
+                          dropdownItems: currencyData,
+                          onItemSelected: (selected) {
+                            setState(() {
+                              selectedCurrency = selected;
+                            });
+                          },
+                        ),
                       ),
+
                       widthBox14,
-                      SizedBox(
-                        height: 40,
-                        width: 100,
-                        child: Center(
+
+                      /// Salary Input
+                      Expanded(
+                        flex: 3,
+                        child: SizedBox(
+                          height: 50,
                           child: RoundTextField(
                             controller: TextEditingController(),
                             hint: '30000',
                             textAlign: TextAlign.center,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -130,7 +158,8 @@ class _CurrentSalaryViewState extends State<CurrentSalaryView> {
 
               /// Day off question
               CustomText(
-                title: 'How many day(s) off do you currently have? \n(choose only 1 option)*',
+                title:
+                'How many day(s) off do you currently have? \n(choose only 1 option)*',
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color: AppColors.mainTextColor,
@@ -159,7 +188,6 @@ class _CurrentSalaryViewState extends State<CurrentSalaryView> {
               CustomButtonWithArrow(
                 title: 'Next',
                 onTap: () {
-                  // Handle next
                   Get.to(HelperDashboardView());
                 },
               ),
@@ -172,3 +200,4 @@ class _CurrentSalaryViewState extends State<CurrentSalaryView> {
     );
   }
 }
+

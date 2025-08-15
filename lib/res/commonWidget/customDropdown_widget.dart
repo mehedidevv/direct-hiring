@@ -2,9 +2,9 @@ import 'package:direct_hiring/res/commonWidget/customText.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropDown extends StatefulWidget {
-  final String initialLabelText; // Initial text to display
-  final List<String> dropdownItems; // List of dropdown items
-  final ValueChanged<String>? onItemSelected; // Callback for selected item
+  final String initialLabelText;
+  final List<String> dropdownItems;
+  final ValueChanged<String>? onItemSelected;
 
   const CustomDropDown({
     super.key,
@@ -18,7 +18,7 @@ class CustomDropDown extends StatefulWidget {
 }
 
 class _CustomDropDownState extends State<CustomDropDown> {
-  late String _selectedItem; // Tracks the selected item
+  late String _selectedItem;
 
   @override
   void initState() {
